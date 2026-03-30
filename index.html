@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrei Raileanu — Video Editor & VFX Artist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #1a1a18;
+    --gray: #666;
+    --light: #f5f4f0;
+    --border: #e8e6e0;
+    --green: #1D9E75;
+    --white: #fff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 0 40px;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--black); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--black); }
+  .nav-cta { font-size: 13px; background: var(--black); color: #fff; padding: 8px 18px; border-radius: 20px; text-decoration: none; transition: opacity 0.2s; }
+  .nav-cta:hover { opacity: 0.8; }
+
+  /* SECTIONS */
+  section { padding: 100px 40px; max-width: 1000px; margin: 0 auto; }
+
+  /* HERO */
+  .hero { padding-top: 160px; padding-bottom: 100px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--green); font-weight: 500;
+    background: rgba(29,158,117,0.08); border: 1px solid rgba(29,158,117,0.2);
+    border-radius: 20px; padding: 4px 14px; margin-bottom: 24px;
+    opacity: 0; transform: translateY(12px);
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+  .hero-title span { color: var(--gray); }
+
+  .hero-sub {
+    font-size: 17px; color: var(--gray); max-width: 520px; line-height: 1.7;
+    margin-bottom: 36px;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 0.7s ease 0.35s forwards;
+  }
+  .hero-sub strong { color: var(--black); font-weight: 500; }
+
+  .hero-actions {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+  .btn-primary { background: var(--black); color: #fff; padding: 12px 24px; border-radius: 24px; text-decoration: none; font-size: 14px; font-weight: 500; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.8; }
+  .btn-secondary { background: var(--light); color: var(--black); padding: 12px 24px; border-radius: 24px; text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.2s; }
+  .btn-secondary:hover { background: #ece9e0; }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);
+    opacity: 0; animation: fadeIn 0.8s ease 0.8s forwards; flex-wrap: wrap;
+  }
+  .stat-num { font-size: 24px; font-weight: 600; letter-spacing: -0.03em; }
+  .stat-label { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  /* CREATOR SECTION */
+  .creator-section { background: var(--light); border-radius: 20px; padding: 40px; }
+  .creator-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .creator-sub { font-size: 14px; color: var(--gray); margin-bottom: 24px; }
+  .creator-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .creator-stat { background: var(--white); border-radius: 12px; padding: 16px; }
+  .creator-stat-num { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+  .creator-stat-label { font-size: 11px; color: var(--gray); margin-top: 3px; }
+  .creator-videos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .creator-video { background: var(--white); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .creator-video-label { font-size: 12px; color: var(--black); font-weight: 500; }
+  .creator-video-views { font-size: 11px; color: var(--green); font-weight: 600; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* SECTION LABELS */
+  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 40px; }
+
+  /* CLIENTS */
+  .clients-section { padding: 60px 40px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%; }
+  .clients-inner { max-width: 1000px; margin: 0 auto; }
+  .clients-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; text-align: center; margin-bottom: 28px; }
+  .clients-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .client-pill { font-size: 13px; font-weight: 500; color: #555; background: var(--light); border-radius: 20px; padding: 7px 18px; transition: background 0.2s, color 0.2s; }
+  .client-pill:hover { background: var(--black); color: #fff; }
+
+  /* WORK */
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .work-card {
+    background: var(--light); border-radius: 16px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+  .work-card.featured { grid-column: span 2; }
+  .work-thumb {
+    aspect-ratio: 16/9; background: #e8e6e0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #aaa; position: relative; overflow: hidden;
+  }
+  .work-thumb-label { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.6); color: #fff; font-size: 11px; padding: 3px 10px; border-radius: 20px; }
+  .work-info { padding: 20px 24px; }
+  .work-client { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 4px; }
+  .work-title { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+  .work-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .work-tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .work-tag { font-size: 11px; background: var(--white); color: #555; border-radius: 6px; padding: 3px 9px; }
+
+  /* CASE STUDIES */
+  .case-study { border: 1px solid var(--border); border-radius: 16px; padding: 36px; margin-bottom: 20px; }
+  .case-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .case-client { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 6px; }
+  .case-title { font-size: 20px; font-weight: 500; }
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .case-block { }
+  .case-block-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-bottom: 8px; }
+  .case-block-text { font-size: 13px; color: #444; line-height: 1.65; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .about-text { font-size: 15px; color: #444; line-height: 1.8; }
+  .about-text p { margin-bottom: 16px; }
+  .about-text strong { color: var(--black); font-weight: 500; }
+  .tools-list { margin-top: 32px; }
+  .tools-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 14px; }
+  .tools-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tool-tag { font-size: 13px; background: var(--light); color: #444; border-radius: 8px; padding: 6px 14px; }
+  .about-right { }
+  .about-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .about-stat { background: var(--light); border-radius: 12px; padding: 20px; }
+  .about-stat-num { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }
+  .about-stat-label { font-size: 12px; color: var(--gray); margin-top: 3px; }
+  .tiktok-link { display: flex; align-items: center; gap: 10px; background: var(--light); border-radius: 12px; padding: 16px 20px; text-decoration: none; color: var(--black); transition: background 0.2s; }
+  .tiktok-link:hover { background: #ece9e0; }
+  .tiktok-icon { width: 36px; height: 36px; background: var(--black); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; flex-shrink: 0; }
+  .tiktok-text { font-size: 13px; }
+  .tiktok-handle { font-weight: 500; display: block; }
+  .tiktok-sub { color: var(--gray); font-size: 12px; }
+
+  /* CONTACT */
+  .contact-section { background: var(--black); border-radius: 24px; padding: 60px; text-align: center; color: #fff; }
+  .contact-title { font-size: 36px; font-weight: 600; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .contact-sub { color: #888; font-size: 15px; margin-bottom: 36px; }
+  .contact-email { display: inline-block; font-size: 18px; font-weight: 500; color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 4px; transition: border-color 0.2s; margin-bottom: 32px; }
+  .contact-email:hover { border-color: #fff; }
+  .contact-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .contact-tag { font-size: 12px; color: #888; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 5px 14px; }
+
+  /* FOOTER */
+  footer { padding: 32px 40px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #aaa; max-width: 1000px; margin: 0 auto; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 80px 20px; }
+    .hero { padding-top: 120px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-card.featured { grid-column: span 1; }
+    .case-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .contact-section { padding: 40px 24px; }
+    .contact-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Andrei Raileanu</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#creator">Creator</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Let's work together</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-eyebrow">
+    <div class="hero-dot"></div>
+    Available for remote work · Async-first
+  </div>
+  <h1 class="hero-title">
+    Video Editor,<br>
+    VFX Artist &<br>
+    <span>Motion Designer.</span>
+  </h1>
+  <p class="hero-sub">
+    I make content that <strong>stops the scroll.</strong> 6+ years delivering VFX, motion graphics, and branded video for international brands — and running my own TikTok channel with <strong>30k followers</strong> to prove it works.
+  </p>
+  <div class="hero-actions">
+    <a href="#work" class="btn-primary">View my work</a>
+    <a href="#contact" class="btn-secondary">Get in touch</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">7+</div>
+      <div class="stat-label">Years experience</div>
+    </div>
+    <div>
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Brands worked with</div>
+    </div>
+    <div>
+      <div class="stat-num">100M+</div>
+      <div class="stat-label">Views generated for brands</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<div class="clients-section">
+  <div class="clients-inner">
+    <div class="clients-label">Brands I've worked with</div>
+    <div class="clients-row">
+      <span class="client-pill">Motorola</span>
+      <span class="client-pill">Müller</span>
+      <span class="client-pill">Pepsi</span>
+      <span class="client-pill">Opel</span>
+      <span class="client-pill">Peugeot</span>
+      <span class="client-pill">Citroën</span>
+      <span class="client-pill">BYD</span>
+      <span class="client-pill">Vola</span>
+      <span class="client-pill">Carrefour</span>
+      <span class="client-pill">E.ON</span>
+      <span class="client-pill">WorldClass</span>
+      <span class="client-pill">Sacoor</span>
+      <span class="client-pill">Takis</span>
+      <span class="client-pill">Mondly</span>
+      <span class="client-pill">MultiversX</span>
+    </div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label">Selected Work</div>
+  <div class="work-grid">
+
+    <div class="work-card featured">
+      <div class="work-thumb">
+        <span class="work-thumb-label">VFX · Social</span>
+        📱 Motorola Romania — add your video here
+      </div>
+      <div class="work-info">
+        <div class="work-client">Motorola</div>
+        <div class="work-title">Social VFX & Branded Content</div>
+        <div class="work-desc">Ongoing VFX and video production for Motorola Romania. Short-form branded content combining visual effects and storytelling for TikTok and Instagram.</div>
+        <div class="work-tags">
+          <span class="work-tag">VFX</span>
+          <span class="work-tag">Video Editing</span>
+          <span class="work-tag">TikTok</span>
+          <span class="work-tag">Long-term</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-thumb">
+        <span class="work-thumb-label">VFX · Social</span>
+        🥛 Müller — add your video here
+      </div>
+      <div class="work-info">
+        <div class="work-client">Müller</div>
+        <div class="work-title">Social VFX & Branded Content</div>
+        <div class="work-desc">VFX-driven social content combining TV commercial aesthetics with short-form social formats.</div>
+        <div class="work-tags">
+          <span class="work-tag">VFX</span>
+          <span class="work-tag">TVC-adjacent</span>
+          <span class="work-tag">Instagram</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-thumb">
+        <span class="work-thumb-label">Motion · Ads</span>
+        ✈️ Vola — add your video here
+      </div>
+      <div class="work-info">
+        <div class="work-client">Vola</div>
+        <div class="work-title">Ad Creatives & Motion Design</div>
+        <div class="work-desc">Animated ad creatives and motion graphics for one of Romania's leading travel platforms.</div>
+        <div class="work-tags">
+          <span class="work-tag">Motion Design</span>
+          <span class="work-tag">Animation</span>
+          <span class="work-tag">Ads</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-thumb">
+        <span class="work-thumb-label">VFX · Automotive</span>
+        🚗 Automotive — add your video here
+      </div>
+      <div class="work-info">
+        <div class="work-client">Opel · Peugeot · Citroën</div>
+        <div class="work-title">Automotive VFX</div>
+        <div class="work-desc">High-motion visual effects and branded content for automotive social media campaigns.</div>
+        <div class="work-tags">
+          <span class="work-tag">VFX</span>
+          <span class="work-tag">Automotive</span>
+          <span class="work-tag">Social</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CREATOR -->
+<section id="creator">
+  <div class="section-label">Creator</div>
+  <div class="creator-section">
+    <div class="creator-title">@raileanu.andrei</div>
+    <div class="creator-sub">Original VFX comedy content — grown organically in under 8 months.</div>
+    <div class="creator-stats">
+      <div class="creator-stat">
+        <div class="creator-stat-num">30k</div>
+        <div class="creator-stat-label">TikTok followers</div>
+      </div>
+      <div class="creator-stat">
+        <div class="creator-stat-num">3</div>
+        <div class="creator-stat-label">Videos over 1M views</div>
+      </div>
+      <div class="creator-stat">
+        <div class="creator-stat-num">4–5</div>
+        <div class="creator-stat-label">Videos at 800k–1M views</div>
+      </div>
+    </div>
+    <div class="creator-videos">
+      <div class="creator-video">
+        <span class="creator-video-label">VFX Comedy #1</span>
+        <span class="creator-video-views">1M+ views</span>
+      </div>
+      <div class="creator-video">
+        <span class="creator-video-label">VFX Comedy #2</span>
+        <span class="creator-video-views">1M+ views</span>
+      </div>
+      <div class="creator-video">
+        <span class="creator-video-label">VFX Comedy #3</span>
+        <span class="creator-video-views">1M+ views</span>
+      </div>
+      <div class="creator-video">
+        <span class="creator-video-label">VFX Comedy #4</span>
+        <span class="creator-video-views">800k–1M views</span>
+      </div>
+      <div class="creator-video">
+        <span class="creator-video-label">VFX Comedy #5</span>
+        <span class="creator-video-views">800k–1M views</span>
+      </div>
+      <div class="creator-video" style="justify-content: center;">
+        <a href="https://tiktok.com/@raileanu.andrei" target="_blank" style="font-size:12px; color: var(--green); font-weight:500; text-decoration:none;">View all on TikTok →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div>
+      <div class="about-text">
+        <p>I'm <strong>Andrei Raileanu</strong>, a Video Editor, VFX Artist, and Motion Designer based in Bucharest, Romania with <strong>7+ years of experience</strong> in creative production.</p>
+        <p>For most of my career I've been the primary creative force behind a Bucharest agency — handling 80–90% of all video, VFX, and motion work across 50+ brands. In practice, I've operated as a <strong>one-person creative department</strong>: brief to final delivery, start to finish.</p>
+        <p>I work <strong>async-first</strong>, communicate clearly, and treat every project like it's my own content. Available for long-term retainers and remote contracts.</p>
+      </div>
+      <div class="tools-list">
+        <div class="tools-label">Tools</div>
+        <div class="tools-tags">
+          <span class="tool-tag">Adobe Premiere Pro</span>
+          <span class="tool-tag">After Effects</span>
+          <span class="tool-tag">DaVinci Resolve</span>
+          <span class="tool-tag">CapCut</span>
+          <span class="tool-tag">Photoshop</span>
+          <span class="tool-tag">Illustrator</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="about-stat-grid">
+        <div class="about-stat">
+          <div class="about-stat-num">7+</div>
+          <div class="about-stat-label">Years experience</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">50+</div>
+          <div class="about-stat-label">Brands worked with</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">100M+</div>
+          <div class="about-stat-label">Views for brands</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">∞</div>
+          <div class="about-stat-label">Bad ideas executed well</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-section">
+    <div class="contact-title">Let's work together</div>
+    <div class="contact-sub">Available for remote retainers, long-term contracts, and project-based work.</div>
+    <a href="mailto:andrei.raileanu.tdc@gmail.com" class="contact-email">andrei.raileanu.tdc@gmail.com</a>
+    <div class="contact-tags">
+      <span class="contact-tag">Async-first</span>
+      <span class="contact-tag">Remote only</span>
+      <span class="contact-tag">Available now</span>
+      <span class="contact-tag">Bucharest, Romania</span>
+      <span class="contact-tag">USD · EUR invoicing</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Andrei Raileanu</span>
+  <span>Video Editor · VFX Artist · Motion Designer</span>
+</footer>
+
+</body>
+</html>
