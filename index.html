@@ -74,22 +74,23 @@ section:first-of-type{padding-top:140px}
 
 /* ── SHOWREEL ── */
 .showreel-section{}
-.sec-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--gray2);margin-bottom:20px}
+.sec-label{font-size:32px;font-weight:800;letter-spacing:-0.02em;color:var(--white);margin-bottom:40px;text-align:center}
+.section-label{font-size:32px;font-weight:800;letter-spacing:-0.02em;color:var(--white);margin-bottom:40px;text-align:center}
 .showreel-wrapper{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--border)}
 .showreel-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 
 /* ── CLIENTS ── */
-.clients-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--gray2);margin-bottom:20px;text-align:center}
-.clients-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.cpill{font-size:12px;font-weight:500;color:#666;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 16px;transition:all .2s;cursor:default}
-.cpill:hover{color:var(--white);border-color:var(--border2)}
+.clients-label{font-size:32px;font-weight:800;letter-spacing:-0.02em;color:var(--white);margin-bottom:40px;text-align:center}
+.clients-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:920px;margin:0 auto}
+.cpill{font-size:14px;font-weight:600;color:#aaa;background:var(--surface);border-radius:12px;padding:14px 16px;transition:all .2s;cursor:default;text-align:center;width:calc(25% - 8px);min-width:160px;box-sizing:border-box;background-image:linear-gradient(var(--surface),var(--surface)),linear-gradient(135deg,#6366f1,#8b5cf6,#3b82f6);background-origin:border-box;background-clip:padding-box,border-box;border:1.5px solid transparent}
+.cpill:hover{color:var(--white);background-image:linear-gradient(var(--surface2),var(--surface2)),linear-gradient(135deg,#6366f1,#8b5cf6,#3b82f6);background-origin:border-box;background-clip:padding-box,border-box}.cpill-empty{opacity:0;pointer-events:none;cursor:default}
 
 /* ── CREATOR ── */
 .creator-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .creator-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px}
 .creator-card.dark{background:var(--surface2)}
-.creator-handle{font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px}
-.creator-sub{font-size:13px;color:var(--gray);margin-bottom:24px}
+.creator-handle{font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;text-align:center}
+.creator-sub{font-size:13px;color:var(--gray);margin-bottom:24px;text-align:center}
 .creator-stats-mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
 .csm{background:var(--bg);border-radius:10px;padding:14px}
 .csm-num{font-size:20px;font-weight:700;letter-spacing:-0.02em}
@@ -120,7 +121,7 @@ section:first-of-type{padding-top:140px}
 
 /* ── SKILLS ── */
 .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.skill-col-title{font-size:12px;font-weight:600;color:var(--white);margin-bottom:12px}
+.skill-col-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:16px}
 .skill-tags{display:flex;flex-wrap:wrap;gap:7px}
 .stag{font-size:12px;background:var(--surface);color:#777;border:1px solid var(--border);border-radius:7px;padding:5px 12px;transition:all .2s}
 .stag:hover{color:var(--white);border-color:var(--border2)}
@@ -146,6 +147,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 
 /* RESPONSIVE */
 @media(max-width:860px){
+  .cpill{width:calc(50% - 6px)!important;min-width:unset!important;}
   nav{padding:0 20px}
   .nav-links{display:none}
   section{padding:72px 20px}
@@ -260,7 +262,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 
 <!-- ── CREATOR ── -->
 <section id="creator" class="reveal">
-  <div class="sec-label">Creator</div>
+  <div class="sec-label">Beyond Client Work</div>
   <div class="creator-grid">
 
     <div class="creator-card">
