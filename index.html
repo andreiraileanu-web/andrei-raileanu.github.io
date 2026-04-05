@@ -221,13 +221,13 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
   <div class="sec-label">Showreel 2026</div>
   <div class="showreel-wrapper">
     <video
+      id="showreel-video"
       src="showreel.mp4"
-      autoplay
       muted
       loop
       playsinline
       preload="auto"
-      style="width:100%;height:100%;border-radius:16px;display:block;background:#000;cursor:default">
+      style="width:100%;height:100%;border-radius:16px;display:block;background:#000;cursor:default;pointer-events:none">
     </video>
   </div>
 </section>
@@ -438,6 +438,19 @@ document.querySelectorAll('a,button').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cursor.classList.add('expand');ring.classList.add('expand')});
   el.addEventListener('mouseleave',()=>{cursor.classList.remove('expand');ring.classList.remove('expand')});
 });
+
+// Force autoplay showreel
+const vid = document.getElementById('showreel-video');
+if(vid){
+  vid.muted = true;
+  const tryPlay = () => {
+    vid.play().catch(()=>{});
+  };
+  tryPlay();
+  document.addEventListener('click', tryPlay, {once: true});
+  document.addEventListener('touchstart', tryPlay, {once: true});
+  window.addEventListener('load', tryPlay);
+}
 
 // Scroll reveal
 const obs = new IntersectionObserver(entries=>{
